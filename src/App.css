@@ -36,3 +36,60 @@
     transform: rotate(360deg);
   }
 }
+
+
+
+/* NAVBAR */
+.cursive{
+  font-family: 'The Nautigal', cursive;
+  font-size: 2rem;
+  text-decoration: none;
+}
+
+.navmb{
+  margin-bottom: 7rem;
+}
+
+.logo {
+  padding: 0px 20px;
+  margin: 0 80px;
+}
+
+
+.fixedmenu{
+  top: 0;
+  left: 0;
+  position: fixed;
+  margin: 0;
+  padding: 0;
+  z-index: 1002;
+}
+
+.colornf {
+background-color: #87805E;
+}
+
+.bordenv {
+  border-radius: 10rem;
+  text-align: center;
+}
+.paddnav {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.navtransition {
+  -webkit-transition: 0.7s;
+  transition: 0.7s;
+  text-decoration: none;
+}
+
+.white-text{
+  color: white;
+}
+
+.navtransition:hover {
+  text-decoration: underline;
+  color: black;
+}
