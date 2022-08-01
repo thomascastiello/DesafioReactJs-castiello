@@ -1,13 +1,17 @@
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.css';
 import NavBar from './components/NavBar';
-import 'bootstrap/dist/css/bootstrap.css'
+import ItemListC from './components/ItemListC';
+
 
 function App() {
   return (
     <div className="">
-      <NavBar />
 
+      <NavBar />
+      <ItemListC greeting=" Golden" />
     </div>
+    
   );
 }
 
