@@ -17,7 +17,11 @@ const ItemCount = ({ stock, initial}) => {
     }
 
     const onAdd = () => {
-        alert("Agregaste al carrito una cerveza!")
+        alert("Gracias por tu compra!")
+    }
+
+    const finaliza = () => {
+        alert ("Agregaste la cantidad elegida al carrito!")
     }
 
     return (
@@ -36,7 +40,7 @@ const ItemCount = ({ stock, initial}) => {
                 Añadir al Carrito
             </div> 
             :
-            <div className=" btn btn-primary m-2">
+            <div className=" btn btn-primary  m-2" onClick={finaliza}>
                 <i></i>
                 Añadir al Carrito
             </div>

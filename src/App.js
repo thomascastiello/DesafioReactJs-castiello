@@ -1,8 +1,7 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import NavBar from './components/NavBar';
-import ItemListC from './components/ItemListC';
-
+import ItemListC from './components/ItemList/ItemListC';
 
 function App() {
   return (
@@ -14,7 +13,8 @@ function App() {
       <ItemListC greeting=" Golden" />
       </div>
     </div>
-    
+
+
   );
 }
 
