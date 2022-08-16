@@ -1,10 +1,11 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
+import React from 'react';
 
-function CartWidget(){
-    return(
-        <FontAwesomeIcon icon= {faCartShopping}></FontAwesomeIcon>
-    );
+function CartWidget() {
+    return (
+        <div className="cart-widget">
+            <i className="bi bi-cart3"></i>
+        </div>
+        
+    )
 }
-
-export default CartWidget;
+export default CartWidget

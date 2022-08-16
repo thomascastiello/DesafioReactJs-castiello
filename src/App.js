@@ -1,24 +1,36 @@
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.css';
-import NavBar from './components/NavBar';
-/* import ItemListC from './components/ItemList/ItemListC'; */
-import ItemDetail from './components/ItemDetail/ItemDetail';
+import React from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
+
+
+import Header from './components/Header'
+// import ItemListContainer from './components/ItemListContainer'
+import ItemDetailContainer from './components/ItemDetailContainer'
+import ItemListContainer from './components/ItemListContainer'
+import CategoriesContainer from './components/CategoriesContainer'
 
 function App() {
   return (
-    <div className="">
-
-
-      <NavBar />
-      <div className='mt-5'>
-     {/*  <ItemListC greeting=" Golden" /> */}
-      <ItemDetail/>
+    <BrowserRouter>
+      <div className="App">
+        <Header />
+        <Routes>
+          <Route path="/" element={<ItemListContainer />} />
+          <Route path="/category/:categoryId" element={<ItemListContainer />} />
+          <Route path="/product/:id" element={<ItemDetailContainer />} />
+          <Route path="/categories" element={<CategoriesContainer />} />
+          <Route
+            path="*"
+            element={
+              <div className="error404">
+                <h1>Error 404</h1>
+              </div>
+            }
+          />
+        </Routes>
       </div>
-    </div>
-
-
-  );
+    </BrowserRouter>
+  )
 }
 
-export default App;
+export default App
