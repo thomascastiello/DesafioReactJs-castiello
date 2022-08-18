@@ -18,7 +18,7 @@ function NavBar() {
                 {navItems.map(title =>{
 
                     let route
-                    title == "Home"
+                    title === "Home"
                         ? route = "/"
                         :route = `/${title}`
 

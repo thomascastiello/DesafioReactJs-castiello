@@ -1,7 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import ItemDetail from './ItemDetail';
-import Loader from './Loader';
-import { useParams } from 'react-router-dom';
+import React from 'react';
 import { Link } from 'react-router-dom'
 
 function CategoryCard({name, image}){
@@ -30,17 +27,17 @@ function Categories(){
         {
             name:'electronics', 
             id:'1', 
-            image:'https://pixabay.com/get/ga8510783bda6fe407f8cd156f1abbcfbcf8d497d37bf4cf18211d199c0c7c81338fb0125c6b145d2e18c1785e81b92f36269d5275b3e3c491689902609c2fc79f19f68a2cc7c930309ce4c27e811a0f3_1280.jpg'
+            image:'https://img.freepik.com/foto-gratis/reparador-soldando-componentes-placa-base-mientras-repara-telefono-inteligente-danado-usando-pinzas-plancha_343059-504.jpg?w=996&t=st=1660851859~exp=1660852459~hmac=38239eb00017323c139fc99ae467c83e7faf4991267032eebbbdb93874a4d5a3'
         },
         {
             name:'jewelry', 
             id:'2', 
-            image:'https://pixabay.com/get/gedc77eed7cfb0bae2641309e9cd35bcb54dfd5ddd188bcafffceb7e11ffa136486f8395578b119772bd16ed976160befb576f8e66ad01ff32e91e252af8688205cdbb1e1a61e010ec22a38486547aaba_1280.jpg'
+            image:'https://img.freepik.com/foto-gratis/primer-plano-mujer-sosteniendo-anillo-forma-corona_181624-22837.jpg?w=996&t=st=1660851894~exp=1660852494~hmac=48217435f83a4287e99fb61099e5c2f72ef7fc42183616a697aaa5735b09bf24'
         },
         {
             name:"men's clothing", 
             id:'3', 
-            image:'https://pixabay.com/get/gca6c7d8280fe76040adb13dd2c6aa9de1aba01de1f596d151ade66332ea43b7551765aafd9bb42526e548d53e5affe326679fa821ab07c7fef32f1dee00a2dacd17a2796054e94a558f5461731da67d1_1280.jpg'
+            image:'https://img.freepik.com/foto-gratis/disparo-vertical-hombre-caucasico-rubio-barba-gorra_181624-53004.jpg?w=360&t=st=1660851935~exp=1660852535~hmac=3496788a67f993a2d4a752b4ad9e9d9c6203c85be912b593c918de906bae0da1'
         },
         
     ]
