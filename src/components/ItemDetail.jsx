@@ -1,13 +1,12 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
 import ItemCount from "./ItemCount";
 import {Link} from 'react-router-dom'
+import { CartContext } from "./context/useContext";
 
-const ProductDetail = ({title, price, image, description}) => {
+const ProductDetail = ({product, title, price, image, description}) => {
     const [add, setAdd] = useState(false)
 
-    const onAdd = () => {
-        setAdd(!add)
-    }
+    const { addItem } = useContext(CartContext)
 
     return (
         <div className="product-detail">
@@ -37,7 +36,7 @@ const ProductDetail = ({title, price, image, description}) => {
                     </button>
                     </div>
                     :
-                    <ItemCount initial={1} stock={10} onAdd={onAdd}/>     
+                    <ItemCount initial={1} item={product} stock={10} addItem={addItem}/>     
                 }  
             <Link to="/cart">
             <div className='add-to-cart'>

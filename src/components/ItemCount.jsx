@@ -8,7 +8,7 @@ function CountButton(props){
   )
 
 }
-const ItemCount = ({stock, initial, onAdd}) => {
+const ItemCount = ({item, stock, initial, addItem}) => {
   const [qty, setQty] = useState(initial);
 
   const sumaQty = () => {
@@ -34,7 +34,7 @@ const ItemCount = ({stock, initial, onAdd}) => {
           </div>
           {
             qty > 0 ?
-            <div className='add-to-cart' onClick={() => onAdd()}>
+            <div className='add-to-cart' onClick={() => addItem(qty)}>
             <button>
               <span className="button_top">Add To Cart</span>
             </button>
