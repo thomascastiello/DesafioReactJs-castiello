@@ -1,65 +1,65 @@
-import React, {useState, useContext} from "react";
-import ItemCount from "./ItemCount";
-import {Link} from 'react-router-dom'
-import { CartContext } from "./context/useContext";
+import React from 'react';
+import Item from './Item';
+import {useState, useContext} from 'react';
+import { Link } from "react-router-dom";
+import ItemCount from './ItemCount';
+import { Container, Row} from "reactstrap";
+import {Card, CardImg, CardBody, CardTitle, CardText, CardSubtitle, Button} from "reactstrap"
+import CheckOut from './ChekOut';
+import { CartContext } from './CartContext';
 
-const ProductDetail = ({product, title, price, image, description}) => {
-    const [add, setAdd] = useState(false)
+ const ItemDetail = ({ productos }) => {
+   const [itemCount, setItemCount] = useState(0);
+   const test = useContext(CartContext);
 
-    const { addItem } = useContext(CartContext)
+   const onAdd = (quantity) => {
+     alert("Has añadido al carrito " + quantity + " productos.");
+     setItemCount(quantity);
+     test.addToCart(productos, quantity);
+   }
 
-    return (
-        <div className="product-detail">
-            <div className="detail-image">
-                <img src={image} alt={ `${title}`} />
-            </div>
-            <div className="detail-body">
-                <div className="detail-title">
-                    <h3>{title}</h3>
-                </div>
-                <div className="detail-description">
-                    <p>
-                        {description}
-                    </p>
-
-                </div>
-                <div className="detail-price">
-                    <p>
-                        {price}
-                    </p>
-                </div>
-                {
-                    add ?
-                    <div className='add-to-cart'>
-                    <button>
-                    <span className="button_top" style={{background:"yellow", color:"black"}}>¡Añadido!</span>
-                    </button>
-                    </div>
-                    :
-                    <ItemCount initial={1} item={product} stock={10} addItem={addItem}/>     
-                }  
-            <Link to="/cart">
-            <div className='add-to-cart'>
-            <button>
-            <span className="button_top" style={{background:"blue"}}>Checkout</span>
-            </button>
-            </div>
-            </Link>
-            </div>   
+    return(
+        <>
+        {
+          productos && productos.img
+          ?
+        <Container>
+            <Row>
+             
+    <Card key={productos.id}>
+        <CardImg
+          alt="Card image cap"
+          src= {productos.img}
+          top
+          width="100%"
+        />
+        <CardBody>
+          <CardTitle tag="h5">{productos.nombre}</CardTitle>
+          <CardSubtitle className="mb-2 text-muted" tag="h6">{productos.marca}</CardSubtitle>
+          <CardSubtitle className="mb-2 text-muted" tag="h6">{productos.description}</CardSubtitle>
+          <CardText>${productos.precio}</CardText>
+          <CardSubtitle className="mb-2 text-muted" tag="h6">Unidades disponibles: {productos.stock}</CardSubtitle>
+         
+        </CardBody>
+      </Card>
+           
+            </Row>
+        </Container>
+        : <p>Cargando...</p>
+      }
+        <Container>
+        {  
+          itemCount === 0        
+          ? <ItemCount stock={productos.stock} initial={itemCount} onAdd={onAdd} />
+          : <CheckOut className="container"/> 
+          }
+        <div className='mt-3'>
+        <Link to='/'><Button variant='contained'>Continuar comprando</Button></Link>
         </div>
-    )
-
+        </Container>
+        </>
+    );
 }
 
-function ItemDetail({ data }) {
 
-    console.log(data)
-
-    return (
-        <>  
-            <ProductDetail title={data.title} image={data.image} price={data.price} description={data.description}/>
-        </>)
-        
-}
-
-export default ItemDetail
+export default ItemDetail;

@@ -1,54 +1,22 @@
-import React from "react";
-import { Link } from 'react-router-dom'
+import React from 'react';
+import Item from './Item';
+import { Container, Row, Col} from "reactstrap";
 
-function ProductCard({title, price, image}){
-
-    return (
-        <div className="product-card">
-            
-            <div className="product-card-image">
-                <img src={image} alt={ `${title}`} />
-
-            </div>
-            <div className="product-card-body">
-                <div className="product-card-price">
-                    <p>
-                        {price}
-                    </p>
-                </div>
-                <div className="product-card-title">
-                    <h3>{title}</h3>
-                </div>
-                <button className="buy-btn">Buy</button>
-
-            </div>
-            
-
-
-        </div>
-    )
-
-}
-
-function ItemList(props) {
-
-    const productsArray = props.data
-    return (
-        <>  
-
-        { productsArray.map(product =>{
-
-            return <Link key={product.id} to={`/product/${product.id}`}>
-                <ProductCard  title={product.title} image={product.image} price={product.price}/>
-            </Link>
-            
-            
-            
-            }) 
-        }
+ const ItemList = ({ productos }) => {
+   
+    return(
+        <>
+        <Container>
+            <Row>
+                
+                {productos.map( (product) => (<Item key={product.id} {...product} />)
+                )}
+                
+            </Row>
+        </Container>
         </>
-
     )
 }
 
-export default ItemList
+
+export default ItemList;

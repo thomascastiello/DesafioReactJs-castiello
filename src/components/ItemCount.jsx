@@ -1,55 +1,39 @@
-import React, {useState} from 'react';
+import { Button } from '@mui/material';
+import { useEffect, useState } from "react";
 
-import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
 
-function CountButton(props){
-  return(
-    <button className='count-btn'>{props.children}</button>
-  )
+const ItemCount = ({stock = 0, initial = 1, onAdd}) => {
+    const [count, setCount] = useState(0);
 
-}
-const ItemCount = ({item, stock, initial, addItem}) => {
-  const [qty, setQty] = useState(initial);
+    useEffect(() => {
+        setCount(initial);
+    },[]);
 
-  const sumaQty = () => {
-    if (qty < stock) {
-      setQty(qty + 1);
-    }
-  }
-  const restaQty = () => {
-    if (qty > 0 ) {
-      setQty(qty - 1)
-    }
-  }
 
-  return (
-    <div className='ic-container'>
-        <div className='ic-title'>
-        </div>
-        <div className='ic-body'>
-          <div className='counter'>
-            <div onClick={restaQty}><CountButton><AiOutlineMinus/></CountButton></div>
-            <div><CountButton>{qty}</CountButton></div>
-            <div onClick={sumaQty}><CountButton><AiOutlinePlus /></CountButton></div>
-          </div>
-          {
-            qty > 0 ?
-            <div className='add-to-cart' onClick={() => addItem(qty)}>
-            <button>
-              <span className="button_top">Add To Cart</span>
-            </button>
-            </div>
-            :
-            <div className='add-to-cart' style={{display:"none"}}>
-            <button>
-              <span className="button_top">Add To Cart</span>
-            </button>
-            </div>
-          }  
-        </div>
+    const increment = () => {
+        if (count < stock ){
+            setCount(count + 1);
+           }
+        }
         
-    </div>
-  )
+    const decrement = () => {
+        if (count > initial){
+            setCount(count - 1);
+        }
+
+    }
+    return ( 
+      <div className="divCount">
+          <Button variant="contained" onClick={decrement}>-</Button>
+          <p className='pCount'>{count}</p>
+          <Button variant="contained" onClick={increment}>+</Button>
+          {
+                stock
+                ? <Button variant="contained" color="primary" onClick={() => onAdd(count)}>Agregar al Carrito</Button>
+                : <Button variant="contained" disabled>Agregar al Carrito</Button>
+            }
+      </div>
+    )
 }
 
-export default ItemCount
+export default ItemCount;

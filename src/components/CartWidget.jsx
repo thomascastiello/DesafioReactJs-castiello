@@ -1,23 +1,20 @@
-import React, { useContext } from 'react';
+import { Badge } from '@mui/material';
 import { ShoppingCartOutlined } from '@mui/icons-material';
-import { CartContext } from './context/useContext';
+import { useContext, useEffect } from 'react';
+import { CartContext } from './CartContext';
+
 
 const CartWidget = () => {
-    const {items} = useContext(CartContext)
-    let itemsIncart = 0;
+    const test = useContext(CartContext);
+    
+return (
+     
+        <Badge badgeContent={test.calcItemsQty()} color="secondary">
+            <ShoppingCartOutlined />
+        </Badge>
+ 
+);
 
-    items.map((item) => {
-        itemsIncart = itemsIncart + item.qty;
-    })
+};
 
-
-    return (
-        <div>
-            <div className="cart-widget itemsInCart">
-            {itemsIncart}<i className="bi bi-cart3"><ShoppingCartOutlined style={{color:"green"}}></ShoppingCartOutlined></i>
-            </div>
-        </div>
-        
-    )
-}
-export default CartWidget
+export default CartWidget;

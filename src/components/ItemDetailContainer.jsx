@@ -1,58 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react'
+import { useParams } from "react-router-dom"
 import ItemDetail from './ItemDetail';
-import Loader from './Loader';
-import { useParams } from 'react-router-dom';
+import {firestoreFetchOne} from "../utils/firestoreFetch.js";
 
-function ItemDetailContainer(){
-    
-    const [items, setItems] = useState([]);
-    const [loading, setLoading] = useState(true)
-    const params = useParams()
-    const itemIndex = Number(params.id) -1
+
+const ItemDetailContainer = () => {
+    const [herramientas, setHerramientas] = useState({});
+    const { idItem } = useParams();
 
     useEffect(() => {
-
-        setLoading(true)
-
-        let promiseItems = new Promise((resolve, reject) => {
-                resolve(
-                    fetch('https://fakestoreapi.com/products')
-                    .then(res => res.json())
-                )
-                   
-        })
-
-        promiseItems.then(
-            (respuesta) => {
-                setItems(respuesta)
-                setLoading(false)
-            }
-        )
-        
-    }, [])
-    
-
-    if(loading) {
-        return (
-            <>
-                <div className='detail-container' style={{height: "100vh"}}>
-                    <Loader/> 
-                </div>   
-                
-            </>   
-        )
-                
-    }
+        firestoreFetchOne(idItem)
+            .then(result => setHerramientas(result))
+            .catch(err => console.log(err))
+    }, []);
 
     return (
-        <>
-            <div className='detail-container'>
-                <ItemDetail data={items[itemIndex]}/>
-                
-            </div>   
-        </>           
+        <> 
+        <ItemDetail productos={herramientas} />
+        </>
     )
-  
-  
 }
-export default ItemDetailContainer
+
+export default ItemDetailContainer;

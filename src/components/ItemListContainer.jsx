@@ -1,68 +1,48 @@
-import React, { useState, useEffect } from 'react'
-import ItemList from './ItemList'
-import Loader from './Loader'
-import { useParams } from 'react-router-dom'
+import { useEffect, useState } from 'react';
+import ItemList from './ItemList';
+import { useParams } from 'react-router-dom';
+import { firestoreFetch } from '../utils/firestoreFetch';
+import { Link } from 'react-router-dom';
+import { ListInlineItem } from 'reactstrap';
+import "bootstrap/dist/css/bootstrap.min.css"
+import { Button } from '@mui/material';
+
+const ItemListContainer = () => {
+
+    const [herramientas, setHerramientas] = useState([]);
+    const { idCategory } = useParams();
+
+// component did update
+
+useEffect(() => {
+    firestoreFetch(idCategory)
+        .then(result => setHerramientas(result))
+        .catch(err => console.log(err));
+}, [idCategory]);
 
 
-function ItemListContainer(props) {
-   
-    // let itemsDatabase = []
-    const { categoryId } = useParams(),
-    [items, setItems] = useState([]),
-    [loading, setLoading] = useState(false),
-    categories = ["electronics","jewelery","men's clothing","women's clothing"],
-    selectedCategory = categories[categoryId - 1]
+// component will unmount
+
+useEffect(()=> {
+    return (()=> {
+          setHerramientas([]);
+    })
+}, []);
     
 
-    useEffect(
-        () => {
-        setLoading(true)
-        let promiseItems = new Promise((resolve, reject) => {
-
-            resolve(
-
-                fetch('https://fakestoreapi.com/products')
-                .then(res => res.json())
-            )
-                
-        })
-
-        promiseItems.then(
-            (respuesta) => {
-                categoryId
-                ?setItems(respuesta.filter(product => product.category == selectedCategory))
-                :setItems((respuesta))
-                
-                setLoading(false)
-            }
-        )
-    
-    }, [useParams()])
-
-    if(loading) {
-        return (
-            <>
-                <div className='detail-container' style={{height: "100vh"}}>
-                    <Loader/> 
-                </div>   
-                
-            </>   
-        )
-                
-    }
-    
-
-  return (
-    <>
-
-    <div className='greeting'>Bienvenidos al Ecommerce</div>
-    <div className='cards-container'>
-        <ItemList data={items}/>
-    </div>
-    
-    </>
-    
-  )
+    return (
+        <>
+        <div className='container align-item-center d-flex justify-content-center '>
+        <ListInlineItem className='mt-4 mb-5 col-3'>
+            <Link to='/category/Electrica' style={{textDecoration: "none", color: '#0000008c',}}><Button variant="contained">Herramientas Eléctricas</Button><span class="sr-only"></span></Link>
+        </ListInlineItem>
+        <ListInlineItem className='mt-4 mb-5'>
+            <Link to='/category/Manual' style={{textDecoration: "none", color: '#0000008c'}}><Button variant="contained">Herramientas Manuales</Button></Link>
+        </ListInlineItem>
+        </div>
+        <ItemList className="mt-5" productos={herramientas} />
+        </>
+    )
 }
 
-export default ItemListContainer
+export default ItemListContainer;
