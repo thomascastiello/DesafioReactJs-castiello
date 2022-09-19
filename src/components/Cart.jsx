@@ -48,14 +48,7 @@ const Cart = () => {
       }
     
       createOrderInFirestore()
-        .then(result =>                  <Toast>
-          <ToastHeader icon="primary">
-            Reactstrap
-          </ToastHeader>
-          <ToastBody>
-            This is a toast with a primary icon — check it out!
-          </ToastBody>
-        </Toast>      )
+        .then(result => alert('¡Gracias Por tu compra!. Porfavor toma nota del n° de ID de tu orden.\n\n\nOrder ID: ' + result.id + '\n\n'))
         .catch(err => console.log(err));
     
       test.clear();
