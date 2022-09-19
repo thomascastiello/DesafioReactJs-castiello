@@ -1,61 +1,18 @@
-import {useContext} from 'react';
+import {useContext, useState} from 'react';
 import {CartContext} from './CartContext';
-import {Card, CardImg, CardBody, CardTitle, CardText, CardSubtitle, Button, Container, Row} from "reactstrap"
+import {Card, CardImg, CardBody, CardTitle, CardText, CardSubtitle, Button, Container} from "reactstrap"
 import {Link} from 'react-router-dom';
-import { collection, doc, setDoc, serverTimestamp, updateDoc, increment } from "firebase/firestore";
-import db from '../utils/firebaseConfig';
-import Forms from './Form';
-import {ToastBody, ToastHeader, Toast} from 'reactstrap';
+import CartForm from './CartForm';
 
 
 
 const Cart = () => {
-    const test = useContext(CartContext);
-     
-    const finishOrder = () => {
-      const productsDataBase = test.cartList.map(products => ({
-        id: products.idItem,
-        title: products.nameItem,
-        price: products.priceItem,
-        qty: products.qtyItem
-      }));
   
-      test.cartList.forEach(async (products) => {
-        const itemRef = doc(db, "products", products.idItem);
-        await updateDoc(itemRef, {
-          stock: increment(-products.qtyItem)
-        });
-      });
-  
-      let order = {
-        buyer: {
-          name: "Juan Perez",
-          email: "juan@perez.com",
-          phone: "123456789"
-        },
-        total: test.calcTotal(),
-        items: productsDataBase,
-        date: serverTimestamp()
-      };
-    
-      console.log(order);
-      
-      const createOrderInFirestore = async () => {
-        // Add a new document with a generated id
-        const newOrderRef = doc(collection(db, "orders"));
-        await setDoc(newOrderRef, order);
-        return newOrderRef;
-      }
-    
-      createOrderInFirestore()
-        .then(result => alert('¡Gracias Por tu compra!. Porfavor toma nota del n° de ID de tu orden.\n\n\nOrder ID: ' + result.id + '\n\n'))
-        .catch(err => console.log(err));
-    
-      test.clear();
-    
-    
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const finishOrder = () => setShow(true); 
 
-    }
+  const test = useContext(CartContext);     
 
     return(
         <>
@@ -99,8 +56,7 @@ const Cart = () => {
            <div className=''>
            {
                test.cartList.length > 0 &&
-               <Card>    
-                <Forms/>           
+               <Card>             
                <CardBody>
                  <CardTitle tag="h5">Tu Orden</CardTitle>
                  <CardSubtitle className="mb-2 text-muted" tag="h6">Subtotal</CardSubtitle>
@@ -108,7 +64,8 @@ const Cart = () => {
                  <CardText>IVA: ${test.calcIVA()} </CardText>
                  <CardText>Total: $ {test.calcTotal()}</CardText>             
                  <Button onClick={finishOrder}>Finalizar compra</Button>
-               </CardBody>  
+               </CardBody>
+               <CartForm handleClose={handleClose} show={show} />  
             </Card>
             
            }
