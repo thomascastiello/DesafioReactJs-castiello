@@ -5,7 +5,10 @@ import { Button } from '@mui/material';
 const CheckOut = () => {
     return(
         <>
+
         <Link to='/cart'style={{textDecoration: "none"}}><Button variant="contained" color="secondary">Finalizar Compra</Button></Link>
+        
+        
         </>
     )
 }

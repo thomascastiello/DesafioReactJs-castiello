@@ -4,11 +4,14 @@ import {Card, CardImg, CardBody, CardTitle, CardText, CardSubtitle, Button, Cont
 import {Link} from 'react-router-dom';
 import { collection, doc, setDoc, serverTimestamp, updateDoc, increment } from "firebase/firestore";
 import db from '../utils/firebaseConfig';
+import Forms from './Form';
+import {ToastBody, ToastHeader, Toast} from 'reactstrap';
+
 
 
 const Cart = () => {
     const test = useContext(CartContext);
-
+     
     const finishOrder = () => {
       const productsDataBase = test.cartList.map(products => ({
         id: products.idItem,
@@ -45,7 +48,14 @@ const Cart = () => {
       }
     
       createOrderInFirestore()
-        .then(result => alert('¡Gracias Por tu compra!. Porfavor toma nota del n° de ID de tu orden.\n\n\nOrder ID: ' + result.id + '\n\n'))
+        .then(result =>                  <Toast>
+          <ToastHeader icon="primary">
+            Reactstrap
+          </ToastHeader>
+          <ToastBody>
+            This is a toast with a primary icon — check it out!
+          </ToastBody>
+        </Toast>      )
         .catch(err => console.log(err));
     
       test.clear();
@@ -68,7 +78,7 @@ const Cart = () => {
         }
         </div>
         </div>
-          <div className='d-flex col-6 align-item-center'>
+          <div className='d-flex align-item-center'>
             {
                test.cartList.length > 0 ?
                test.cartList.map( productos => 
@@ -80,7 +90,7 @@ const Cart = () => {
                      width="100%"
                    />
 
-                   <CardBody>
+                   <CardBody className='col-12'>
                      <CardTitle tag="h5">{productos.nameItem}</CardTitle>
                      <CardSubtitle className="mb-2 text-muted" tag="h6">{productos.brandItem}</CardSubtitle>
                      <CardText>$ {productos.priceItem}</CardText> 
@@ -96,16 +106,18 @@ const Cart = () => {
            <div className=''>
            {
                test.cartList.length > 0 &&
-               <Card>               
+               <Card>    
+                <Forms/>           
                <CardBody>
                  <CardTitle tag="h5">Tu Orden</CardTitle>
                  <CardSubtitle className="mb-2 text-muted" tag="h6">Subtotal</CardSubtitle>
                  <CardText> ${test.calcSubTotal()}</CardText> 
                  <CardText>IVA: ${test.calcIVA()} </CardText>
                  <CardText>Total: $ {test.calcTotal()}</CardText>             
-                 <Button onClick={finishOrder}>Finalizar compra</Button>                
-               </CardBody>
+                 <Button onClick={finishOrder}>Finalizar compra</Button>
+               </CardBody>  
             </Card>
+            
            }
            </div>
         </Container>

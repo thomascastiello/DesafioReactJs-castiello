@@ -14,6 +14,7 @@ import { CartContext } from './CartContext';
 
    const onAdd = (quantity) => {
      alert("Has añadido al carrito " + quantity + " productos.");
+     
      setItemCount(quantity);
      test.addToCart(productos, quantity);
    }
